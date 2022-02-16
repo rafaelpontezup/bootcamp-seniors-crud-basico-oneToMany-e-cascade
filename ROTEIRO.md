@@ -35,4 +35,8 @@ Explicação sobre mapeamento Um-para-Muitos e operações em cascata com JPA e 
    3. explica problema do `equals` e `hashCode`
    4. implementa `equals` e `hashCode`
    5. roda app e vê funcionar
-   6. mostra registros no banco
+   6. mostra registros no banco: removeu apenas relacionamento
+   7. explica o que aconteceu e como JPA trabalhar
+   8. configura `orphanRemoval=true`
+   9. roda app e vê funcionar
+   10. mostra SQL e registros no banco
