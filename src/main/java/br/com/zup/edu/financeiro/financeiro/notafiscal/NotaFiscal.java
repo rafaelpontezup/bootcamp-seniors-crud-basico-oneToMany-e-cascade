@@ -2,6 +2,8 @@ package br.com.zup.edu.financeiro.financeiro.notafiscal;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,16 +17,15 @@ public class NotaFiscal {
     private String numero;
     private BigDecimal total;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> itens;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "notaFiscal")
+    private List<Item> itens = new ArrayList<>();
 
     @Deprecated
     public NotaFiscal() {}
 
-    public NotaFiscal(String numero, BigDecimal total, List<Item> itens) {
+    public NotaFiscal(String numero, BigDecimal total) {
         this.numero = numero;
         this.total = total;
-        this.itens = itens;
     }
 
     public Long getId() {
@@ -54,5 +55,15 @@ public class NotaFiscal {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void adiciona(Item item) {
+        item.setNotaFiscal(this);
+        this.itens.add(item);
+    }
+
+    public void remove(Item item) {
+        this.itens.remove(item);
+        item.setNotaFiscal(null);
     }
 }

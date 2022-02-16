@@ -1,5 +1,7 @@
 # Roteiro
 
+## Mapeamento Um-para-Muitos e operações em cascata
+
 Explicação sobre mapeamento Um-para-Muitos e operações em cascata com JPA e Hibernate
 
 1. introdução a aplicação e dominio
@@ -41,3 +43,45 @@ Explicação sobre mapeamento Um-para-Muitos e operações em cascata com JPA e 
    9. roda app e vê funcionar
    10. mostra SQL e registros no banco
 8. finaliza
+
+## Relacionamento bidirecional
+
+Explicação de como configurar relacionamento bidirecional com JPA e Hibernate
+
+1. voltando para aplicação de notas fiscais
+2. revisitando o modelo
+   1. conseguimos navegar do pai para filho
+   2. mas não do filho para pai, e isso pode ser util
+      1. facilita escrita de logicas de negocio
+      2. facilita escrita de consultas JPQL
+         1. `select i.notaFiscal from Item i where i.id = :id`
+         2. `select i from Item i where i.notaFiscal = :nota`
+      3. pode trazer ganhos de performance ao gerar SQL
+3. mapeando o outro lado da relação
+   1. adiciona atributo `notaFiscal` em `Item` com `@ManyToOne`
+   2. analisando o schema: tabela de junção e coluna de junção
+   3. temos 2 relacionamentos, mas precisamos de 1 apenas: relacionamento bidirecional
+   4. adiciona `mappedBy="notaFiscal"` na entidade `NotaFiscal`
+   5. dropa tabela de junção
+   6. roda a aplicação e insere nova nota fiscal
+   7. verifica registros: itens com `nota_fiscal_id=NULL`
+   8. o que aconteceu?
+4. consistência da relação
+   1. explica problema da consistência do relacionamento
+   2. rescreve logica do `toModel()`
+      1. para usar `itens.forEach()` em vez do construtor
+      2. instancia coleção de itens em `NotaFiscal`
+   3. limpa registro dos banco
+   4. roda a aplicação e insere nova nota fiscal
+   5. analisa registros no banco
+   6. funcionou!
+5. usando OO a seu favor
+   1. encapsula logica no metodo `nota.adiciona(item)`
+   2. roda a aplicação e insere nova nota fiscal
+   3. analisa registros no banco
+   4. rescreve logica de remoção de item: `nota.remove(item)`
+   5. roda a aplicação e insere nova nota fiscal
+   6. analisa registros no banco
+   7. podemos ir até mais alem: `Collections.unmodifiableList(itens)` no getter
+6. finaliza
+      

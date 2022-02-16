@@ -43,10 +43,11 @@ public class NotaFiscalRequest {
 
     public NotaFiscal toModel() {
 
-        List<Item> itensDeNota = this.itens.stream().map((i) -> {
-            return i.toModel();
-        }).collect(toList());
+        NotaFiscal notaFiscal = new NotaFiscal(this.numero, this.total);
+        itens.forEach((i) -> {
+           notaFiscal.adiciona(i.toModel());
+        });
 
-        return new NotaFiscal(this.numero, this.total, itensDeNota);
+        return notaFiscal;
     }
 }
