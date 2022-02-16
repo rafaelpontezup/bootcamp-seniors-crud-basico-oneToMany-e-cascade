@@ -1,5 +1,7 @@
 # Roteiro
 
+Explicação sobre mapeamento Um-para-Muitos e operações em cascata com JPA e Hibernate
+
 1. introdução a aplicação e dominio
 2. mostra consumo de API REST
 3. implementa modelo simples
