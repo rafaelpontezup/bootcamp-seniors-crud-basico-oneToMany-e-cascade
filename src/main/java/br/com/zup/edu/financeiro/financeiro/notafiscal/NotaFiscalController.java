@@ -15,13 +15,17 @@ import java.util.Optional;
 @RestController
 public class NotaFiscalController {
 
+    @Autowired
+    private NotaFiscalRepository repository;
+
     @Transactional
     @PostMapping("/api/notas-fiscais")
     public ResponseEntity<?> cadastra(@RequestBody @Valid NotaFiscalRequest request, UriComponentsBuilder uriBuilder) {
 
-        // TODO: implementar logica de negocio
+        NotaFiscal notaFiscal = request.toModel();
+        repository.save(notaFiscal);
 
-        Long notaId = -999999L;
+        Long notaId = notaFiscal.getId();
         URI location = uriBuilder.path("/api/notas-fiscais/{id}")
                             .buildAndExpand(notaId).toUri();
 
@@ -33,7 +37,11 @@ public class NotaFiscalController {
     @DeleteMapping("/api/notas-fiscais/{notaId}")
     public ResponseEntity<?> remove(@PathVariable("notaId") Long notaId) {
 
-        // TODO: implementar logica de negocio
+        NotaFiscal notaFiscal = repository.findById(notaId).orElseThrow(() -> {
+           return new ResponseStatusException(HttpStatus.NOT_FOUND, "nota fiscal não encontrada");
+        });
+
+        repository.delete(notaFiscal);
 
         return ResponseEntity.ok().build();
     }
@@ -42,7 +50,15 @@ public class NotaFiscalController {
     @DeleteMapping("/api/notas-fiscais/{notaId}/itens/{itemId}")
     public ResponseEntity<?> removeItem(@PathVariable("notaId") Long notaId, @PathVariable("itemId") Long itemId) {
 
-        // TODO: implementar logica de negocio
+        NotaFiscal notaFiscal = repository.findById(notaId).orElseThrow(() -> {
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, "nota fiscal não encontrada");
+        });
+
+        Item item = new Item(itemId); // DETACHED
+        boolean removido = notaFiscal.getItens().remove(item);
+        if (!removido) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "impossivel remover item da nota fiscal");
+        }
 
         return ResponseEntity.ok().build();
     }

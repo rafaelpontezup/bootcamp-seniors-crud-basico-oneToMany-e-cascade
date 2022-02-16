@@ -24,4 +24,7 @@ public class ItemRequest {
         return quantidade;
     }
 
+    public Item toModel() {
+        return new Item(new Produto(produtoId), quantidade);
+    }
 }
