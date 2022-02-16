@@ -40,3 +40,4 @@ Explicação sobre mapeamento Um-para-Muitos e operações em cascata com JPA e 
    8. configura `orphanRemoval=true`
    9. roda app e vê funcionar
    10. mostra SQL e registros no banco
+8. finaliza
