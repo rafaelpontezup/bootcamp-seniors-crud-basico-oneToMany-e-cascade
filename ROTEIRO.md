@@ -84,4 +84,8 @@ Explicação de como configurar relacionamento bidirecional com JPA e Hibernate
    6. analisa registros no banco
    7. podemos ir até mais alem: `Collections.unmodifiableList(itens)` no getter
 6. finaliza
+   1. como vimos, relacionamento bidirecional pode ser bem util de varias formas
+   2. mas não podemos ignorar que há o desafio de manter a consitencia do modelo
+   3. o que antes eram simples e de responsabilidade do Hibernate...
+   4. ...se tornou um pouco mais complexo e ficou na responsabilidade do desenvolvedor(a)
       
