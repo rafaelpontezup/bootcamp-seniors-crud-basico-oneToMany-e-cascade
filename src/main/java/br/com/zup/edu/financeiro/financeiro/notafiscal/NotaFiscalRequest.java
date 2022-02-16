@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import java.util.stream.Collectors;
+import static java.util.stream.Collectors.*;
 
 public class NotaFiscalRequest {
 
@@ -43,11 +43,10 @@ public class NotaFiscalRequest {
 
     public NotaFiscal toModel() {
 
-        NotaFiscal notaFiscal = new NotaFiscal(this.numero, this.total);
-        itens.forEach((i) -> {
-           notaFiscal.adiciona(i.toModel());
-        });
+        List<Item> itensDeNota = this.itens.stream().map((i) -> {
+            return i.toModel();
+        }).collect(toList());
 
-        return notaFiscal;
+        return new NotaFiscal(this.numero, this.total, itensDeNota);
     }
 }

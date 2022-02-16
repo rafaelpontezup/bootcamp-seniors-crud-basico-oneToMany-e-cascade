@@ -80,7 +80,7 @@ Explicação de como configurar relacionamento bidirecional com JPA e Hibernate
    2. roda a aplicação e insere nova nota fiscal
    3. analisa registros no banco
    4. rescreve logica de remoção de item: `nota.remove(item)`
-   5. roda a aplicação e insere nova nota fiscal
+   5. roda a aplicação e remove item de nota
    6. analisa registros no banco
    7. podemos ir até mais alem: `Collections.unmodifiableList(itens)` no getter
 6. finaliza

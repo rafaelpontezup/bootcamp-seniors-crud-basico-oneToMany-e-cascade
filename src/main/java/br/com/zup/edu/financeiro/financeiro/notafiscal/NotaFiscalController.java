@@ -55,7 +55,10 @@ public class NotaFiscalController {
         });
 
         Item item = new Item(itemId); // DETACHED
-        notaFiscal.remove(item);
+        boolean removido = notaFiscal.getItens().remove(item);
+        if (!removido) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "impossivel remover item da nota fiscal");
+        }
 
         return ResponseEntity.ok().build();
     }

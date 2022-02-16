@@ -15,9 +15,6 @@ public class Item {
 
     private Integer quantidade;
 
-    @ManyToOne
-    private NotaFiscal notaFiscal;
-
     @Deprecated
     public Item(){}
 
@@ -40,14 +37,6 @@ public class Item {
 
     public Integer getQuantidade() {
         return quantidade;
-    }
-
-    public NotaFiscal getNotaFiscal() {
-        return notaFiscal;
-    }
-
-    public void setNotaFiscal(NotaFiscal notaFiscal) {
-        this.notaFiscal = notaFiscal;
     }
 
     @Override
