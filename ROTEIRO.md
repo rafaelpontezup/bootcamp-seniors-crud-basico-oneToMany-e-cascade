@@ -122,3 +122,36 @@ Explicação de como configurar relacionamento bidirecional com JPA e Hibernate
     5. item.quantidade = `@NotNull @Positive`
     6. faz alguns testes via Insomnia
 11. finaliza
+
+## LT1: imitation
+
+1. explica o dominio para cadastro de contatos
+2. desenha API REST no Insomnia
+3. navega pela aplicação
+   1. abre `application.properties` e explica confs importantes
+   3. mostra schema no banco
+4. constroi controller
+   1. com metodo `NovoContatoController.cadastra()`
+   2. implementa DTO `NovoContatoRequest` e `TelefoneRequest`
+   3. implementa logica do `toModel()`
+5. modela entidades
+   1. implementa classes `Contato` e `Telefone`
+   2. mapeia as classes
+   3. adiciona relacionamento `@OneToMany` 
+   4. configura `cascade` como `CascadeType.PERSIST`
+   5. configura relacionamento bidirecional: `mappedBy="contato"`
+   6. gera construtor e getters
+6. implementa e injeta repository `ContatoRepository`
+7. grava contato no banco com `repository.save(contato)`
+8. retorna `HTTP 201 CREATED`
+   1. adiciona `ResponseEntity.created(location).build()`
+   2. injeta `UriComponentsBuilder` como parametro do metodo
+   3. implementa `uriBuilder.path("/api/contatos/{id}").buildAndExpand(contatoId).toUri()`
+9. adiciona `@Transactional` no metodo do controller
+10. adiciona validação:
+   1. contato.nome = `@NotBlank`
+   3. contato.itens = `@NotEmpty @Valid`
+   4. telefone.tipo = `@NotBlank`
+   5. telefone.numero = `@NotBlank @Pattern(regexp = "^\\+[1-9][0-9]\\d{1,14}$")`
+   6. faz alguns testes via Insomnia
+11. finaliza
