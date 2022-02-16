@@ -88,4 +88,37 @@ Explicação de como configurar relacionamento bidirecional com JPA e Hibernate
    2. mas não podemos ignorar que há o desafio de manter a consitencia do modelo
    3. o que antes eram simples e de responsabilidade do Hibernate...
    4. ...se tornou um pouco mais complexo e ficou na responsabilidade do desenvolvedor(a)
-      
+
+## LT1: worked out
+
+1. explica o dominio para cadastro de nota fiscal
+2. desenha API REST no Insomnia
+3. navega pela aplicação
+   1. abre `application.properties` e explica confs importantes
+   2. mostra entidade `Produto`
+   3. mostra schema no banco
+4. constroi controller
+   1. com metodo `cadastra()`
+   2. implementa DTO `NotaFiscalRequest` e `ItemRequest`
+   3. implementa logica do `toModel()`
+5. modela entidades 
+   1. implementa classes `NotaFiscal` e `Item`
+   2. mapeia as classes
+   3. adiciona relacionamento `@OneToMany` unidirecional
+   4. configura `cascade` como `CascadeType.ALL`
+   5. gera construtor e getters
+6. implementa e injeta repository `NotaFiscalRepository`
+7. grava nota fiscal no banco com `repository.save(nota)`
+8. retorna `HTTP 201 CREATED`
+   1. adiciona `ResponseEntity.created(location).build()`
+   2. injeta `UriComponentsBuilder` como parametro do metodo
+   3. implementa `uriBuilder.path("/api/notas-fiscais/{id}").buildAndExpand(notaId).toUri()`
+9. adiciona `@Transactional` no metodo do controller
+10. adiciona validação:
+    1. nota.numero = `@NotBlank`
+    2. nota.total = `@NotNull @Positive`
+    3. nota.itens = `@NotEmpty @Valid`
+    4. item.produto = `@NotNull`
+    5. item.quantidade = `@NotNull @Positive`
+    6. faz alguns testes via Insomnia
+11. finaliza
