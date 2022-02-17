@@ -14,7 +14,7 @@ public class NotaFiscal {
     private String numero;
     private BigDecimal total;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     private List<Item> itens;
 
     @Deprecated
