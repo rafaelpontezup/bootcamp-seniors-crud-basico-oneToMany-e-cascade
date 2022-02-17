@@ -14,7 +14,7 @@ public class Contato {
     private String nome;
     private String empresa;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "contato")
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "contato")
     private List<Telefone> telefones = new ArrayList<>();
 
     @Deprecated
