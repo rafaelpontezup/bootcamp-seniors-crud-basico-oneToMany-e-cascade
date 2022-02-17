@@ -149,9 +149,31 @@ Explicação de como configurar relacionamento bidirecional com JPA e Hibernate
    3. implementa `uriBuilder.path("/api/contatos/{id}").buildAndExpand(contatoId).toUri()`
 9. adiciona `@Transactional` no metodo do controller
 10. adiciona validação:
-   1. contato.nome = `@NotBlank`
-   3. contato.itens = `@NotEmpty @Valid`
-   4. telefone.tipo = `@NotBlank`
-   5. telefone.numero = `@NotBlank @Pattern(regexp = "^\\+[1-9][0-9]\\d{1,14}$")`
-   6. faz alguns testes via Insomnia
-11. finaliza
+11. contato.nome = `@NotBlank`
+12. contato.itens = `@NotEmpty @Valid`
+13. telefone.tipo = `@NotBlank`
+14. telefone.numero = `@NotBlank @Pattern(regexp = "^\\+[1-9][0-9]\\d{1,14}$")`
+15. faz alguns testes via Insomnia
+16. finaliza
+
+## LT2: worked out
+
+1. explica dominio
+2. mostra entidade funcionario
+3. navega pela aplicação
+   1. abre `application.properties` e explica confs importantes
+   2. mostra schema no banco
+4. constroi controller
+   1. cria classe `RemoveFuncionarioController`
+   2. implementa metodo `remove()` com `@DeleteMapping`
+   3. recebe `id` via `@PathVariable`
+   4. injeta repository `FuncionarioRepository`
+   5. lida com `NOT_FOUND`
+   6. remove entidade com `repository.delete(funcionario)`
+   7. retorna `noContent()` e explica possiveis retornos na página da Mozilla
+   8. adiciona `@Transactional`
+5. testando via Insominia
+   1. escolhe um funcionário do banco de dados (id)
+   2. altera URI com id do funcionario
+   3. submete
+6. finaliza
