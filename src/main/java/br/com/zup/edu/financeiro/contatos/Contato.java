@@ -1,6 +1,7 @@
 package br.com.zup.edu.financeiro.contatos;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +18,18 @@ public class Contato {
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "contato")
     private List<Telefone> telefones = new ArrayList<>();
 
+    private boolean ativo = true;
+
     @Deprecated
     public Contato(){}
 
     public Contato(String nome, String empresa) {
         this.nome = nome;
         this.empresa = empresa;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
     }
 
     public Long getId() {

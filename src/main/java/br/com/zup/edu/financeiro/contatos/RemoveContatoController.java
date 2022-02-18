@@ -23,6 +23,10 @@ public class RemoveContatoController {
            return new ResponseStatusException(HttpStatus.NOT_FOUND, "contato não encontrado");
         });
 
+        if (contato.isAtivo()) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "impossivel remover um contato ativo");
+        }
+
         repository.delete(contato);
 
         return ResponseEntity
