@@ -26,10 +26,6 @@ public class AlteraContatoController {
             return new ResponseStatusException(HttpStatus.NOT_FOUND, "contato não encontrado");
         });
 
-        if (!contato.isAtivo()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "impossivel alterar um contato inativo");
-        }
-
         contato.setNome(request.getNome());
         contato.setEmpresa(request.getEmpresa());
 
