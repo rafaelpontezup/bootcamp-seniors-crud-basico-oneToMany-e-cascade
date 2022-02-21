@@ -19,4 +19,20 @@ public class Funcionario {
     private Cargo cargo;
 
     private BigDecimal salario;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
 }
