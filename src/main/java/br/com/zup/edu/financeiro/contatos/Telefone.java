@@ -1,6 +1,7 @@
 package br.com.zup.edu.financeiro.contatos;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Telefone {
@@ -17,6 +18,10 @@ public class Telefone {
 
     @Deprecated
     public Telefone(){}
+
+    public Telefone(Long id) {
+        this.id = id;
+    }
 
     public Telefone(String tipo, String numero) {
         this.tipo = tipo;
@@ -40,5 +45,18 @@ public class Telefone {
     }
     public void setContato(Contato contato) {
         this.contato = contato;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Telefone telefone = (Telefone) o;
+        return Objects.equals(id, telefone.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
