@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-public class NovoContratoController {
+public class NovoContatoController {
 
     @Autowired
     private ContatoRepository repository;

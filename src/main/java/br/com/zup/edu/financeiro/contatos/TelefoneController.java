@@ -24,18 +24,21 @@ public class TelefoneController {
                                               UriComponentsBuilder uriBuilder) {
 
         Contato contato = repository.findById(contatoId).orElseThrow(() -> {
-            return new ResponseStatusException(HttpStatus.NOT_FOUND, "contato não encontrado");
+           return new ResponseStatusException(HttpStatus.NOT_FOUND, "contato não encontrado");
         });
 
         Telefone telefone = request.toModel();
         contato.adiciona(telefone);
 
+        repository.flush(); // força geração do ID do telefone no banco de dados
+
         URI location = uriBuilder
-                .path("/api/contatos/{id}")
-                .buildAndExpand(contato.getId()).toUri();
+                .path("/api/contatos/{contatoId}/telefones/{telefoneId}")
+                .buildAndExpand(contato.getId(), telefone.getId())
+                .toUri();
 
         return ResponseEntity
-                .created(location).build();
+                .created(location).build(); // HTTP 201 CREATED
     }
 
     @Transactional
@@ -48,9 +51,9 @@ public class TelefoneController {
         });
 
         contato.remove(new Telefone(telefoneId));
-        repository.save(contato); // não necessário por causa do contexto de persistência
 
         return ResponseEntity
                 .noContent().build();
     }
+
 }

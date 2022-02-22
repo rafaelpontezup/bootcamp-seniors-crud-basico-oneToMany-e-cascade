@@ -7,7 +7,6 @@ public class NovoTelefoneRequest {
 
     @NotBlank
     private String tipo;
-
     @NotBlank
     @Pattern(regexp = "^\\+[1-9][0-9]\\d{1,14}$")
     private String numero;

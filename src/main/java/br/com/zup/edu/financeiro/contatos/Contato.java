@@ -14,7 +14,7 @@ public class Contato {
     private String nome;
     private String empresa;
 
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "contato", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "contato", orphanRemoval = true)
     private List<Telefone> telefones = new ArrayList<>();
 
     private boolean ativo = true;
@@ -60,9 +60,9 @@ public class Contato {
     }
 
     public void remove(Telefone telefone) {
+        telefone.setContato(null);
         if (!this.telefones.remove(telefone)) {
             throw new TelefoneNaoEncontradoException("telefone não encontrado");
         }
-        telefone.setContato(null);
     }
 }
