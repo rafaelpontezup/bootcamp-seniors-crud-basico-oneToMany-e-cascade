@@ -15,7 +15,7 @@ public class Funcionario {
 
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String cpf;
 
     @Enumerated(EnumType.STRING)
