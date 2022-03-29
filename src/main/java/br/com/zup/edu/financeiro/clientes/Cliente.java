@@ -11,6 +11,8 @@ public class Cliente {
     private Long id;
 
     private String nome;
+
+    @Column(unique = true)
     private String cpf;
     private String profissao;
 
