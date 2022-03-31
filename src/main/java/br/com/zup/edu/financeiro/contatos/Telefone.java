@@ -3,6 +3,9 @@ package br.com.zup.edu.financeiro.contatos;
 import javax.persistence.*;
 import java.util.Objects;
 
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "UK_telefone_contato", columnNames = { "numero", "contato_id" })
+})
 @Entity
 public class Telefone {
 
@@ -14,7 +17,7 @@ public class Telefone {
     private String numero;
 
     @ManyToOne
-    private Contato contato;
+    private Contato contato; // coluna: contato_id
 
     @Deprecated
     public Telefone(){}
