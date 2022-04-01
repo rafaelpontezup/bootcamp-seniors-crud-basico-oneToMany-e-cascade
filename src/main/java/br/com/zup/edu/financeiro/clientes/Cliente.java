@@ -1,5 +1,7 @@
 package br.com.zup.edu.financeiro.clientes;
 
+import br.com.zup.edu.utils.CpfUtils;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -12,8 +14,11 @@ public class Cliente {
 
     private String nome;
 
-    @Column(unique = true)
     private String cpf;
+
+    @Column(unique = true, length = 64)
+    private String hashDoCpf;
+
     private String profissao;
 
     @Column(nullable = false, updatable = false)
@@ -24,7 +29,8 @@ public class Cliente {
 
     public Cliente(String nome, String cpf, String profissao) {
         this.nome = nome;
-        this.cpf = cpf;
+        this.cpf = CpfUtils.anonymize(cpf);
+        this.hashDoCpf = CpfUtils.hash(cpf);
         this.profissao = profissao;
     }
 
@@ -43,4 +49,5 @@ public class Cliente {
     public LocalDateTime getCriadoEm() {
         return criadoEm;
     }
+
 }
