@@ -32,6 +32,11 @@ public class NovoUsuarioController {
     public ResponseEntity<?> cadastra(@RequestBody @Valid NovoUsuarioRequest request,
                                       UriComponentsBuilder uriBuilder) {
 
+        if (repository.existsByEmailAndEmpresaId(request.getEmail(), request.getEmpresaId())) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,
+                    "usuário com este email já existente para esta empresa");
+        }
+
         Usuario usuario = request.toModel(empresaRepository);
         repository.save(usuario);
 
@@ -47,7 +52,7 @@ public class NovoUsuarioController {
     public ResponseEntity<?> handleUniqueConstraintErrors(ConstraintViolationException e) {
 
         Map<String, Object> body = Map.of(
-                "message", "usuário já existente no sistema",
+                "message", "usuário com este email já existente para esta empresa",
                 "timestamp", LocalDateTime.now()
         );
 

@@ -2,6 +2,9 @@ package br.com.zup.edu.seguranca.usuarios;
 
 import javax.persistence.*;
 
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "UK_usuario_empresa_email", columnNames = { "empresa_id", "email" })
+})
 @Entity
 public class Usuario {
 
@@ -14,7 +17,7 @@ public class Usuario {
     private String email;
 
     @ManyToOne
-    private Empresa empresa;
+    private Empresa empresa; // coluna: empresa_id
 
     @Deprecated
     public Usuario(){}

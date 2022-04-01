@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class NovoUsuarioRequest {
 
@@ -19,6 +20,7 @@ public class NovoUsuarioRequest {
     @NotBlank
     private String email;
 
+    @NotNull
     private Long empresaId;
 
     public NovoUsuarioRequest(String nome, String cpf, String email, Long empresaId) {
