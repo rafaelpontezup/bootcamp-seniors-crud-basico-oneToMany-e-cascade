@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
     public boolean existsByCpf(String cpf);
+
+    boolean existsByHashDoCpf(String hashDoCpf);
 }

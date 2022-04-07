@@ -1,5 +1,6 @@
 package br.com.zup.edu.financeiro.funcionarios;
 
+import br.com.zup.edu.utils.CpfUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,8 @@ public class NovoFuncionarioController {
     @PostMapping("/api/funcionarios")
     public ResponseEntity<?> cadastra(@RequestBody @Valid NovoFuncionarioRequest request, UriComponentsBuilder uriBuilder) {
 
-        if (repository.existsByCpf(request.getCpf())) {
+        String hashDoCpf = CpfUtils.hash(request.getCpf());
+        if (repository.existsByHashDoCpf(hashDoCpf)) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "funcionário já existente");
         }
 
