@@ -3,6 +3,7 @@ package br.com.zup.edu.financeiro.funcionarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ public class RemoveFuncionarioController {
     @Autowired
     private FuncionarioRepository repository;
 
+    @PreAuthorize("hasAuthority('SCOPE_funcionarios:write')")
     @Transactional
     @DeleteMapping("/api/funcionarios/{id}")
     public ResponseEntity<?> remove(@PathVariable("id") Long id) {
